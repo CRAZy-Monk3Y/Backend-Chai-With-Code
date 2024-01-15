@@ -1,0 +1,39 @@
+# Dependencies 
+node_modules
+
+# Production
+build
+dist
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Environment variables
+.env
+.env.production
+
+# Editor directories and files
+.vscode
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# Tests
+coverage
+
+# Misc
+.tmp
+temp*
+CachedFiles
+
+# npm
+npm-debug.log
+yarn-error.log
