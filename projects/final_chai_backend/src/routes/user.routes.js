@@ -6,7 +6,7 @@ const userRouter = Router();
 
 userRouter.route("/register").post(
   upload.fields([
-    // using multer middlewqre for images
+    // using multer middlewqre  for images
     {
       name: "avatar",
       maxCount: 1,
