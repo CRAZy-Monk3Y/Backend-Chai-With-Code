@@ -1,0 +1,46 @@
+meta {
+  name: Login User
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:8000/api/v1/users/login
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "username": "john",
+    "password": "secret"
+  }
+}
+
+body:form-urlencoded {
+  : 
+}
+
+body:multipart-form {
+  fullName: John Doe
+  email: john2email.com
+  username: John
+  password: secret
+}
+
+script:pre-request {
+  // const fs = require("fs");
+  // const path = require("path");
+  // const FormData = require("form-data");
+  
+  // const cwd = bru.cwd();
+  // const url = bru.getEnvVar("host") + "./projects/final_chai_backend/public";
+  // const attachmentFilename = "CH3_bg.jpg";
+  // const attachmentPath = path.join(cwd,'/projects/final_chai_backend/public/CH3_bg.jpg');
+  // const attachment = fs.readFileSync(attachmentPath);
+  
+  // const formData = new FormData();
+  // formData.append('avatar', attachment, { filename: attachmentFilename }); 
+  
+  // req.setBody(formData);
+}
