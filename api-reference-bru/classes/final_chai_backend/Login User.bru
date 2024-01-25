@@ -13,6 +13,7 @@ post {
 body:json {
   {
     "username": "john",
+    "email": "john@email.com",
     "password": "secret"
   }
 }
@@ -26,21 +27,4 @@ body:multipart-form {
   email: john2email.com
   username: John
   password: secret
-}
-
-script:pre-request {
-  // const fs = require("fs");
-  // const path = require("path");
-  // const FormData = require("form-data");
-  
-  // const cwd = bru.cwd();
-  // const url = bru.getEnvVar("host") + "./projects/final_chai_backend/public";
-  // const attachmentFilename = "CH3_bg.jpg";
-  // const attachmentPath = path.join(cwd,'/projects/final_chai_backend/public/CH3_bg.jpg');
-  // const attachment = fs.readFileSync(attachmentPath);
-  
-  // const formData = new FormData();
-  // formData.append('avatar', attachment, { filename: attachmentFilename }); 
-  
-  // req.setBody(formData);
 }

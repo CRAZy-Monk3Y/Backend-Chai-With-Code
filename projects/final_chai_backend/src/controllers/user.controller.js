@@ -77,13 +77,15 @@ const generateAccessAndRefreshToken = async (userId) => {
 const loginUser = asyncHandler(async (req, res) => {
   // parse the email & password from the request body
   const { email, username, password } = req.body;
-  console.log({ username, password, email });
+  // console.log({ username, password, email });
   // validate that the fields are not empty
   if (!username && !email) {
     throw new ApiError(400, "Username or email is required");
   }
   // check if there is a user registered with the email id or username
-  const user = await User.findOne({ $or: [username, email] });
+  const user = await User.findOne({
+    $or: [{ username }, { email }],
+  });
   if (!user) {
     throw new ApiError(404, "User does not exists");
   }
@@ -97,7 +99,8 @@ const loginUser = asyncHandler(async (req, res) => {
     user._id
   );
   // send cookies
-  user.select("-password -refreshToken");
+  user.password = undefined;
+  user.refreshToken = undefined;
   const options = {
     httpOnly: true,
     secure: true,
@@ -123,8 +126,8 @@ const loginUser = asyncHandler(async (req, res) => {
 const logoutUser = asyncHandler(async (req, res) => {
   const { _id } = req.user;
   await User.findByIdAndUpdate(_id, {
-    $set: {
-      refreshToken: undefined,
+    $unset: {
+      refreshToken: 1,
     },
   });
   const options = {

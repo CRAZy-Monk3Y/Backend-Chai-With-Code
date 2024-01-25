@@ -1,0 +1,26 @@
+meta {
+  name: Logout User
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:8000/api/v1/users/logout
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWIxNjQ2ZjE1Nzc5OGU4ODU5MTE1MDQiLCJlbWFpbCI6ImpvaG5AZW1haWwuY29tIiwidXNlcm5hbWUiOiJqb2huIiwiZnVsbE5hbWUiOiJKb2huIERvZSIsImlhdCI6MTcwNjE5NDQwNSwiZXhwIjoxNzA2MjgwODA1fQ.vZZuqH2iFV76bRjjv5H808VroOhN_Jc5EmOUfH7N5sI
+}
+
+body:form-urlencoded {
+  : 
+}
+
+body:multipart-form {
+  fullName: John Doe
+  email: john2email.com
+  username: John
+  password: secret
+}
