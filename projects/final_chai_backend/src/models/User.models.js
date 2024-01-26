@@ -32,6 +32,13 @@ const userSchema = new mongoose.Schema(
     coverImage: {
       type: String, // cloudnary url
     },
+    avatarPublicId: {
+      type: String, // cloudnary publicId
+      required: true,
+    },
+    coverImagePublicId: {
+      type: String, // cloudnary publicId
+    },
     watchHistory: [
       {
         type: mongoose.Schema.Types.ObjectId,

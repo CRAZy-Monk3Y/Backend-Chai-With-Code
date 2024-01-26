@@ -36,20 +36,23 @@ const registerUser = asyncHandler(async (req, res) => {
   if (!avatar) {
     throw new ApiError(400, "Avatar image not provided");
   }
-  //   console.log(avatar);
+
   //   create User object  - create entry in db
-  const user = await User.create({
+  let user = await User.create({
     fullName,
     avatar: avatar.url,
+    avatarPublicId: avatar.public_id,
     coverImage: coverImage?.url || "",
+    coverImagePublicId: coverImage?.public_id || "",
     email,
     password,
     username: username.toLowerCase(),
   });
+
   //   remove password & refresh token field from response
   // check for creation response
   const savedUser = await User.findById(user._id).select(
-    "-password -refreshToken"
+    "-password -refreshToken -avatarPublicId -coverImagePublicId"
   );
   if (!savedUser) {
     throw new ApiError(500, "Something went wrong while registering the user");
@@ -226,7 +229,7 @@ const updateAccountDetails = asyncHandler(async (req, res) => {
       $set: { fullName, email },
     },
     { new: true }
-  ).select("-password -refreshToken");
+  ).select("-password -refreshToken -avatarPublicId -coverImagePublicId");
   res
     .status(200)
     .json(new ApiResponse(200, user, "Account details updated successfully"));
@@ -234,6 +237,8 @@ const updateAccountDetails = asyncHandler(async (req, res) => {
 
 const updateUserAvatar = asyncHandler(async (req, res) => {
   const avatarLocalPath = req.file?.path;
+
+  const prevUser = await User.findById(req.user?._id);
 
   if (!avatarLocalPath) {
     throw new ApiError(400, "Avatar file is missing");
@@ -243,7 +248,7 @@ const updateUserAvatar = asyncHandler(async (req, res) => {
     throw new ApiError(400, "Error While uploading Avatar");
   }
 
-  await DeleteOldImage(avatar.public_id);
+  await DeleteOldImage(prevUser.avatarPublicId);
 
   const user = await User.findByIdAndUpdate(
     req.user?._id,
@@ -251,7 +256,7 @@ const updateUserAvatar = asyncHandler(async (req, res) => {
       $set: { avatar: avatar.url },
     },
     { new: true }
-  ).select("-password -refreshToken");
+  ).select("-password -refreshToken -avatarPublicId -coverImagePublicId");
 
   res
     .status(200)
@@ -260,6 +265,7 @@ const updateUserAvatar = asyncHandler(async (req, res) => {
 
 const updateUserCoverImage = asyncHandler(async (req, res) => {
   const coverImageLocalPath = req.file?.path;
+  const prevUser = await User.findById(req.user?._id);
 
   if (!coverImageLocalPath) {
     throw new ApiError(400, "Cover Image file is missing");
@@ -269,7 +275,9 @@ const updateUserCoverImage = asyncHandler(async (req, res) => {
     throw new ApiError(400, "Error While uploading Cover Image");
   }
 
-  await DeleteOldImage(coverImage.public_id);
+  if (prevUser?.coverImagePublicId.length > 0) {
+    await DeleteOldImage(prevUser.coverImagePublicId);
+  }
 
   const user = await User.findByIdAndUpdate(
     req.user?._id,
