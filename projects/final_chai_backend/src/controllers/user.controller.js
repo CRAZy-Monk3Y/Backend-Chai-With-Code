@@ -4,6 +4,7 @@ import { User } from "../models/User.models.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import jwt from "jsonwebtoken";
+import { DeleteOldImage } from "../utils/deleteOldImage.js";
 
 const registerUser = asyncHandler(async (req, res) => {
   //   get user details from req
@@ -242,6 +243,8 @@ const updateUserAvatar = asyncHandler(async (req, res) => {
     throw new ApiError(400, "Error While uploading Avatar");
   }
 
+  await DeleteOldImage(avatar.public_id);
+
   const user = await User.findByIdAndUpdate(
     req.user?._id,
     {
@@ -265,6 +268,8 @@ const updateUserCoverImage = asyncHandler(async (req, res) => {
   if (!coverImage.url) {
     throw new ApiError(400, "Error While uploading Cover Image");
   }
+
+  await DeleteOldImage(coverImage.public_id);
 
   const user = await User.findByIdAndUpdate(
     req.user?._id,
