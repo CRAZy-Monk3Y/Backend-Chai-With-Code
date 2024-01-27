@@ -1,9 +1,9 @@
-import { asyncHandler } from "../utils/asyncHandler.js";
-import { ApiError } from "../utils/ApiError.js";
-import { User } from "../models/User.models.js";
-import { uploadOnCloudinary } from "../utils/cloudinary.js";
-import { ApiResponse } from "../utils/ApiResponse.js";
 import jwt from "jsonwebtoken";
+import { User } from "../models/User.models.js";
+import { ApiError } from "../utils/ApiError.js";
+import { ApiResponse } from "../utils/ApiResponse.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
+import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import { DeleteOldImage } from "../utils/deleteOldImage.js";
 
 const registerUser = asyncHandler(async (req, res) => {
@@ -293,13 +293,10 @@ const updateUserCoverImage = asyncHandler(async (req, res) => {
 });
 
 export {
-  registerUser,
-  loginUser,
-  logoutUser,
-  refreshAccessToken,
   changeCurrentUserPassword,
-  getCurrentUser,
-  updateAccountDetails,
+  getCurrentUser, loginUser,
+  logoutUser,
+  refreshAccessToken, registerUser, updateAccountDetails,
   updateUserAvatar,
-  updateUserCoverImage,
+  updateUserCoverImage
 };
