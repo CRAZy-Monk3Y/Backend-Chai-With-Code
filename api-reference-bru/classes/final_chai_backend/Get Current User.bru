@@ -1,11 +1,11 @@
 meta {
-  name: Logout User
+  name: Get Current User
   type: http
-  seq: 3
+  seq: 6
 }
 
-get {
-  url: http://localhost:8000/api/v1/users/current-user
+post {
+  url: http://localhost:8000/api/v1/users/logout
   body: json
   auth: bearer
 }

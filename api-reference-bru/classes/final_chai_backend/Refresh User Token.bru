@@ -1,0 +1,32 @@
+meta {
+  name: Refresh User Token
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:8000/api/v1/users/refresh-token
+  body: json
+  auth: none
+}
+
+auth:bearer {
+  token: 
+}
+
+body:json {
+  {
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWIzZTIyNDEyMGQ1YWIyMjllNGVhMGQiLCJpYXQiOjE3MDYzNDM2MDIsImV4cCI6MTcwNzIwNzYwMn0.h7xsjsi1rYAZa9TchUu6EG1FLrHgrRSzRlAIOIC0l-8"
+  }
+}
+
+body:form-urlencoded {
+  : 
+}
+
+body:multipart-form {
+  fullName: John Doe
+  email: john2email.com
+  username: John
+  password: secret
+}
