@@ -1,0 +1,26 @@
+meta {
+  name: server healthcheck
+  type: http
+  seq: 9
+}
+
+get {
+  url: http://localhost:8000/api/v1/healthcheck
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: 
+}
+
+body:form-urlencoded {
+  : 
+}
+
+body:multipart-form {
+  fullName: John Doe
+  email: john2email.com
+  username: John
+  password: secret
+}
