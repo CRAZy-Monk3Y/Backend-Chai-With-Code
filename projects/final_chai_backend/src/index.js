@@ -15,8 +15,10 @@ connectDB()
       throw error;
     });
 
-    app.listen(PORT, () => {
-      console.log(`Server Started on http://localhost:${PORT}`);
+    const server = app.listen(PORT, () => {
+      console.log(
+        `Server Started on ${server.address().address !== "::" || "http://localhost"}:${server.address().port}`
+      );
     });
   })
   .catch((err) => console.log("Db Connection Failed ", err));

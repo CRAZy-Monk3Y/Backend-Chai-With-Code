@@ -16,6 +16,7 @@ const uploadOnCloudinary = async (localFilePath) => {
     // upload the file on cloudinary
     const response = await cloudinary.uploader.upload(localFilePath, {
       resource_type: "auto",
+      media_metadata: true,
     });
     // file has been uploaded successfully
     // console.log("File is uploaded ", response.url);
@@ -27,4 +28,17 @@ const uploadOnCloudinary = async (localFilePath) => {
   }
 };
 
-export { uploadOnCloudinary };
+async function getVideoDuration(publicId) {
+  try {
+    const response = await cloudinary.api.resource(publicId, {
+      resource_type: "video",
+      image_metadata: true,
+    });
+    return response.video_duration;
+  } catch (error) {
+    console.error(`Error retrieving video duration: ${error}`);
+    return null; // Or handle error appropriately
+  }
+}
+
+export { uploadOnCloudinary, getVideoDuration };
