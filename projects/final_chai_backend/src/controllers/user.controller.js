@@ -131,11 +131,17 @@ const loginUser = asyncHandler(async (req, res) => {
 
 const logoutUser = asyncHandler(async (req, res) => {
   const { _id } = req.user;
-  await User.findByIdAndUpdate(_id, {
-    $unset: {
-      refreshToken: 1,
+  await User.findByIdAndUpdate(
+    _id,
+    {
+      $unset: {
+        refreshToken: 1, // this removes the filed from the db document
+      },
     },
-  });
+    {
+      new: true,
+    }
+  );
   const options = {
     httpOnly: true,
     secure: true,
@@ -294,7 +300,7 @@ const updateUserCoverImage = asyncHandler(async (req, res) => {
 });
 
 const getUserChannelProfile = asyncHandler(async (req, res) => {
-  const { username } = req.parama;
+  const { username } = req.params;
 
   if (!username?.trim()) {
     throw new ApiError(400, "Channel username is not providede in the url");
@@ -330,15 +336,17 @@ const getUserChannelProfile = asyncHandler(async (req, res) => {
         // adds filelds to users
         subscribersCount: {
           // adds subscriber counts
-          $size: "subscribers",
+          $size: "$subscribers",
         },
         channelsSubscribedToCount: {
           // adds user subscribed channes
-          $size: "subscribedTo",
+          $size: "$subscribedTo",
         },
         isSubscribed: {
           $cond: {
             if: { $in: [req.user?._id, "$subscribers.subscriber"] }, // for channels subscribers
+            then: true,
+            else: false,
           },
         },
       },
@@ -357,7 +365,7 @@ const getUserChannelProfile = asyncHandler(async (req, res) => {
     },
   ]);
 
-  console.log(channel);
+  // console.log(channel);
 
   if (!channel?.length) {
     throw new ApiError(404, "channel does not exists");

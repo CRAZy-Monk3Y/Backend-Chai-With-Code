@@ -1,0 +1,26 @@
+meta {
+  name: get channel profille
+  type: http
+  seq: 8
+}
+
+get {
+  url: http://localhost:8000/api/v1/users/channel/john
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWIzZTIyNDEyMGQ1YWIyMjllNGVhMGQiLCJlbWFpbCI6ImpvaG5AZW1haWwuY29tIiwidXNlcm5hbWUiOiJqb2huIiwiZnVsbE5hbWUiOiJKb2huIERvZSIsImlhdCI6MTcwNjc2NjA5NCwiZXhwIjoxNzA2ODUyNDk0fQ.enUS6M-0IxkGqKfs6KFn9Y7BcLRyI_LfUbdkdYEm-Dc
+}
+
+body:form-urlencoded {
+  : 
+}
+
+body:multipart-form {
+  fullName: John Doe
+  email: john2email.com
+  username: John
+  password: secret
+}

@@ -1,0 +1,26 @@
+meta {
+  name: get User watch history
+  type: http
+  seq: 7
+}
+
+get {
+  url: http://localhost:8000/api/v1/users/history
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWIzZTIyNDEyMGQ1YWIyMjllNGVhMGQiLCJlbWFpbCI6ImpvaG5AZW1haWwuY29tIiwidXNlcm5hbWUiOiJqb2huIiwiZnVsbE5hbWUiOiJKb2huIERvZSIsImlhdCI6MTcwNjc2MTUwNSwiZXhwIjoxNzA2ODQ3OTA1fQ.qSSdomOFukzE_lD00o7SgDa0gR6Fe2F53VqKJgPMDio
+}
+
+body:form-urlencoded {
+  : 
+}
+
+body:multipart-form {
+  fullName: John Doe
+  email: john2email.com
+  username: John
+  password: secret
+}
