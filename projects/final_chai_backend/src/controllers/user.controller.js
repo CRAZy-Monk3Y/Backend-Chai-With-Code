@@ -4,7 +4,7 @@ import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
-import { DeleteOldImage } from "../utils/deleteOldImage.js";
+import { DeleteOldAsset } from "../utils/deleteOldAsset.js";
 import mongoose from "mongoose";
 
 const registerUser = asyncHandler(async (req, res) => {
@@ -257,7 +257,7 @@ const updateUserAvatar = asyncHandler(async (req, res) => {
     throw new ApiError(400, "Error While uploading Avatar");
   }
 
-  await DeleteOldImage(prevUser.avatarPublicId);
+  await DeleteOldAsset(prevUser.avatarPublicId);
 
   const user = await User.findByIdAndUpdate(
     req.user?._id,
@@ -285,7 +285,7 @@ const updateUserCoverImage = asyncHandler(async (req, res) => {
   }
 
   if (prevUser?.coverImagePublicId.length > 0) {
-    await DeleteOldImage(prevUser.coverImagePublicId);
+    await DeleteOldAsset(prevUser.coverImagePublicId);
   }
 
   const user = await User.findByIdAndUpdate(

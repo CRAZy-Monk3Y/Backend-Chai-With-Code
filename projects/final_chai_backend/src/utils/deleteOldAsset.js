@@ -7,15 +7,15 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_CLOUD_API_SECRET,
 });
 
-const DeleteOldImage = async ({ imagePublicId }) => {
+const DeleteOldAsset = async ({ assetPublicId }) => {
   try {
-    if (!imagePublicId) {
+    if (!assetPublicId) {
       return null;
     }
-    const result = await cloudinary.uploader.destroy(imagePublicId);
+    const result = await cloudinary.uploader.destroy(assetPublicId);
   } catch (error) {
-    new ApiError(500, "Image deletion error");
+    new ApiError(500, "Asset deletion error");
   }
 };
 
-export { DeleteOldImage };
+export { DeleteOldAsset };

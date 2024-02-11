@@ -1,0 +1,22 @@
+meta {
+  name: Add Video
+  type: http
+  seq: 12
+}
+
+post {
+  url: http://localhost:8000/api/v1/videoes/
+  body: multipartForm
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWM4YmUzZGVhZDZjNzliZTQ1Mjg1YTUiLCJlbWFpbCI6ImpvaG5AZW1haWwuY29tIiwidXNlcm5hbWUiOiJqb2huIiwiZnVsbE5hbWUiOiJKb2huIiwiaWF0IjoxNzA3NjU0NzY2LCJleHAiOjE3MDc3NDExNjZ9.PyVg993TH067F7aAOKaIst_l6TQVlz3niJs7axideYw
+}
+
+body:multipart-form {
+  title: Test Video 1
+  description: Test Video for john
+  videoFile: @file(C:\Users\TATHAGATA\Videos\2023-06-01_16-19-10.mp4)
+  thumbnail: @file(C:\Users\TATHAGATA\Pictures\LVM3.jpg)
+}
